@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ffe4c1, #ffd1a9);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e5a76a;
+            background: linear-gradient(135deg, #ffe4b3, #f5c085);
+            border-radius: 15px;
+        }
+        .header h1 {
+            font-size: 3em;
+            color: #d2691e;
+            letter-spacing: 3px;
+            font-family: 'Raleway', sans-serif;
+            text-transform: uppercase;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 30px;
+        }
+        .tab {
+            padding: 15px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #f4a261, #e76f51);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.2s;
+            font-family: 'Raleway', sans-serif;
+        }
+        .tab:hover {
+            background: linear-gradient(135deg, #e76f51, #f4a261);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .tab.active {
+            background-color: #e9c46a;
+        }
+        .pdf-upload {
+            max-width: 900px;
+            height: 400px;
+            margin: 40px auto;
+            border-radius: 20px;
+            border: 2px dashed #e76f51;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: rgba(255, 245, 230, 0.8);
+            transition: transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .pdf-upload:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .pdf-upload input[type="file"] {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .pdf-upload p {
+            pointer-events: none;
+            font-size: 2em;
+            color: #d2691e;
+        }
+        .book-section {
+            display: none;
+            margin-top: 40px;
+        }
+        .book-box {
+            width: 48%;
+            height: 500px;
+            border-radius: 20px;
+            border: 2px solid #e76f51;
+            background-color: rgba(255, 245, 230, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: #d2691e;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .book-box:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: scale(1.08);
+        }
+        .book-box-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .view-book-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #f4a261, #e76f51);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.2s;
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            border: none;
+        }
+        .view-book-button:hover {
+            background: linear-gradient(135deg, #e76f51, #f4a261);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff8e7;
+            color: #d2691e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            text-align: center;
+            z-index: 9999;
+        }
+        .fade-out {
+            animation: fadeOut 3s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .fullscreen-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .image-caption {
+            font-size: 1.2em;
+            color: #d2691e;
+            margin-top: 10px;
+            text-align: center;
+        }
+        p {
+            margin-left: 2.8em;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const welcomeScreen = document.createElement('div');
+            welcomeScreen.classList.add('welcome-screen');
+            welcomeScreen.innerHTML = "Welcome to Story.0, the future of children's stories.";
+            document.body.appendChild(welcomeScreen);
+
+            setTimeout(() => {
+                welcomeScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    welcomeScreen.remove();
+                }, 3000);
+            }, 3000);
+            const tabs = document.querySelectorAll(".tab");
+            const pdfSection = document.querySelector(".pdf-upload");
+            const bookSection = document.createElement("div");
+            bookSection.classList.add("book-section");
+
+            // Adding book boxes container
+            const bookBoxContainer = document.createElement("div");
+            bookBoxContainer.classList.add("book-box-container");
+
+            // Adding book boxes with images and captions
+            const bookBox1 = document.createElement("div");
+            bookBox1.classList.add("book-box");
+            const img1 = document.createElement("img");
+            img1.id = "image1";
+            img1.src = "example_image_generation_6B.png"; // Replace with the actual image path
+            img1.alt = "Image 1A";
+            img1.style.width = "100%";
+            img1.style.height = "auto";
+            const caption1 = document.createElement("p");
+            caption1.classList.add("image-caption");
+            caption1.id = "caption1";
+            caption1.textContent = "Caption for Image 1A"; // Initial placeholder text
+            bookBox1.appendChild(img1);
+            bookBox1.appendChild(caption1);
+
+            const bookBox2 = document.createElement("div");
+            bookBox2.classList.add("book-box");
+            const img2 = document.createElement("img");
+            img2.id = "image2";
+            img2.src = "example_image_generation_7A.png"; // Replace with the actual image path
+            img2.alt = "Image 1B";
+            img2.style.width = "100%";
+            img2.style.height = "auto";
+            const caption2 = document.createElement("p");
+            caption2.classList.add("image-caption");
+            caption2.id = "caption2";
+            caption2.textContent = "Caption for Image 1B"; // Initial placeholder text
+            bookBox2.appendChild(img2);
+            bookBox2.appendChild(caption2);
+
+            // Append book boxes to container
+            bookBoxContainer.appendChild(bookBox1);
+            bookBoxContainer.appendChild(bookBox2);
+
+            // Append book container to book section
+            bookSection.appendChild(bookBoxContainer);
+
+            // Adding View Book Button
+            const viewBookButton = document.createElement("button");
+            viewBookButton.classList.add("view-book-button");
+            viewBookButton.textContent = "View Book";
+            bookSection.appendChild(viewBookButton);
+
+            document.querySelector(".container").appendChild(bookSection);
+
+            // Fullscreen overlay setup
+            const fullscreenOverlay = document.createElement("div");
+            fullscreenOverlay.classList.add("fullscreen-overlay");
+            const fullscreenImageContainer = document.createElement("div");
+            fullscreenImageContainer.style.display = "flex";
+            fullscreenImageContainer.style.gap = "20px";
+            const fullscreenImage1 = document.createElement("img");
+            const fullscreenImage2 = document.createElement("img");
+            fullscreenImageContainer.appendChild(fullscreenImage1);
+            fullscreenImageContainer.appendChild(fullscreenImage2);
+            fullscreenOverlay.appendChild(fullscreenImageContainer);
+            document.body.appendChild(fullscreenOverlay);
+
+            function openFullscreen(imageSrc1, imageSrc2) {
+                fullscreenImage1.src = imageSrc1;
+                fullscreenImage2.src = imageSrc2;
+                fullscreenOverlay.style.display = "flex";
+            }
+
+            function closeFullscreen() {
+                fullscreenOverlay.style.display = "none";
+            }
+
+            fullscreenOverlay.addEventListener("click", closeFullscreen);
+
+            // Add click event to View Book button for fullscreen
+            viewBookButton.addEventListener("click", function() {
+                openFullscreen('example_image_generation_6B.png', 'example_image_generation_7A.png');
+            });
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function() {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+                    if (tab.textContent === "Insert PDF") {
+                        pdfSection.style.display = "flex";
+                        bookSection.style.display = "none";
+                    } else if (tab.textContent === "Book") {
+                        pdfSection.style.display = "none";
+                        bookSection.style.display = "block";
+                    }
+                });
+            });
+
+            let currentPage = 0;
+            const images = Array.from({ length: 16 }, (_, i) => [
+                `Hagrid, a giant of a man, arrives on a motorcycle carrying baby Harry, who is sleeping. `, `Dumbledore and McGonagall examine little Harry and discuss his unusual lightning bolt scar.`
+            ]);
+            const captions = Array.from({ length: 16 }, (_, i) => [
+                `Caption for Image ${i + 1}A`, `Caption for Image ${i + 1}B`
+            ]);
+
+            function updateBookBoxes() {
+                bookBox1.textContent = images[currentPage][0];
+                bookBox2.textContent = images[currentPage][1];
+
+                document.getElementById('caption1').textContent = captions[currentPage][0];
+                document.getElementById('caption2').textContent = captions[currentPage][1];
+            }
+
+            bookBox2.addEventListener("click", function() {
+                currentPage = (currentPage + 1) % images.length;
+                bookBox2.style.transform = "perspective(1000px) rotateY(-180deg)";
+                setTimeout(() => {
+                    updateBookBoxes();
+                    bookBox2.style.transform = "perspective(1000px) rotateY(0deg)";
+                }, 800);
+            });
+
+            bookBox1.addEventListener("click", function() {
+                currentPage = (currentPage - 1 + images.length) % images.length;
+                bookBox1.style.transform = "perspective(1000px) rotateY(180deg)";
+                setTimeout(() => {
+                    updateBookBoxes();
+                    bookBox1.style.transform = "perspective(1000px) rotateY(0deg)";
+                }, 800);
+            });
+
+            updateBookBoxes();
+
+            const pdfUpload = document.querySelector(".pdf-upload");
+            const fileInput = pdfUpload.querySelector("input[type='file']");
+            const message = pdfUpload.querySelector("p");
+            let uploadedPDF = null;
+
+            fileInput.addEventListener("change", function() {
+                if (fileInput.files.length > 0) {
+                    uploadedPDF = fileInput.files[0];
+                    message.textContent = "PDF Uploaded";
+                    console.log("PDF stored in variable: ", uploadedPDF);
+                }
+            });
+        });
+    </script>
+</head>
+<body class="smooth-scroll">
+    <div class="container">
+        <div class="header">
+            <h1 class="hacking-text" style="animation: none;">Story.0</h1>
+            <div class="tabs">
+                <div class="tab">Insert PDF</div>
+                <div class="tab">Book</div>
+            </div>
+        </div>
+        <form class="pdf-upload" id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <p style="font-family: 'Raleway', sans-serif; text-transform: uppercase;">INSERT STORY PDF HERE</p>
+            <input type="file" name="file" accept="application/pdf" required>
+            <button type="submit" class="view-book-button">Upload PDF</button>
+        </form>        
+    </div>
+</body>
+</html>
